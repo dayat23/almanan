@@ -1,0 +1,48 @@
+<%= form_for(@contact, html: { class: "form-horizontal" }) do |f| %>
+  <% if @contact.errors.any? %>
+    <div id="error_explanation">
+        <div class="alert">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <h3><%= pluralize(@contact.errors.count, "error") %> ditemukan sebelum disimpan</h3>
+          <% @contact.errors.full_messages.each do |msg| %>
+          <ul>
+            <li><strong>Warning!</strong> <%= msg %></li>
+          </ul>
+          <% end %>
+        </div>
+    </div>
+  <% end %>
+
+  <div class="registerbox">
+    <div class="control-group">
+      <label class="control-label" for="firstname">Nama Lengkap</label>
+      <div class="controls">
+        <%= f.text_field :full_name, placeholder: "Nama lengkap" %>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="email">Email</label>
+      <div class="controls">
+        <%= f.text_field :email, placeholder: "Email" %>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="phone">Subject</label>
+      <div class="controls">
+        <%= f.text_field :subject, placeholder: "Subject" %>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="phone">Keterangan</label>
+      <div class="controls">
+        <%= f.text_area :message, placeholder: "keterangan", rows: 5 %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <div class="controls">
+      <%= f.submit 'Kirim', class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

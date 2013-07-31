@@ -1,0 +1,27 @@
+<ul class="breadcrumb">
+  <li><%= link_to 'Home', root_path %> <span class="divider">/</span></li>
+  <li class="active">Hubungi Kami</li>
+</ul>
+
+<div class="container">
+    <div class="row">
+        <div class="span7">
+        	<h3>Hubungi Kami</h3>
+			<%= render 'form' %>
+		</div>
+
+		<div class="span5">
+          <aside>
+            <div class="sidewidt">
+              <h2 class="heading2"><span>Kontak Info</span></h2>
+              <img src="http://maps.googleapis.com/maps/api/staticmap?center=-7.29263,112.76315&zoom=13&size=400x200&maptype=roadmap
+&markers=color:red%7Clabel:L%7C-7.29263,112.76315&sensor=false"><br><br>
+              <p>Alamat: Jl. Menur 5 no 18, Surabaya <br>
+                Telepon: +6281 330 066 247 <br>
+                Email: <%= mail_to "m.hidayatulloh1@gmail.com", nil, :replace_at => "[at]", :replace_dot => "[dot]", :class => "email" %><br>
+              </p>
+            </div>
+          </aside>
+		</div>
+	</div>
+</div>

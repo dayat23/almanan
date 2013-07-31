@@ -1,0 +1,132 @@
+<div class="container">
+     <!--  breadcrumb --> 
+      <ul class="breadcrumb">
+        <li>
+          <%= link_to 'Home', root_path %>
+          <span class="divider">/</span>
+        </li>
+        <li class="active"> Keranjang Belanja</li>
+      </ul>       
+      <h3 class="heading1"> Semua item di keranjang belanja anda</h3>
+      <!-- Cart-->
+      <div class="cart-info">
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th class="image">Image</th>
+            <th class="model">Kode Produk</th>
+            <th class="name">Nama Produk</th>
+            <th class="quantity">Qty</th>
+            <th class="total">Action</th>
+            <th class="price">Unit Price</th>
+            <th class="total">Total</th>
+           
+          </tr>
+          <% if @cart.line_items.length > 0%>
+            <% for item in @cart.line_items %>
+          <tr>
+            <td class="image"><a href="#"><%= image_tag "download.png", width: "50", height: "50", alt: "", title: "" %></a></td>
+            <td class="model"><%= item.product.code_product %></td>
+            <td class="name"><%= link_to item.product.name_product, detail_product_path(item.product) %></td>
+            <td class="quantity">
+              <%= form_for :item, :url => updateqty_path(id: item.id) do |f| %>
+                <%= f.number_field :quantity, value: item.quantity, size: "1", class: "span1" %>
+            </td>
+            <td class="total"><%= image_submit_tag("img/update.png", class: "tooltip-test", title: "Update") %>
+              <% end %>
+              <%= form_for :item, :url => deleteitem_path(id: item.id) do %>
+                <%= image_submit_tag("img/remove.png", class: "tooltip-test", title: "Remove") %>
+              <% end %>
+            </td>
+            <td class="price"><%= number_to_currency item.product.price, unit: "IDR ", precision: 0, delimiter: '.' %></td>
+            <td class="total"><%= number_to_currency item.total_price, unit: "IDR ", precision: 0, delimiter: '.' %></td>
+          </tr>
+            <% end %>
+          <% else %>
+          <tr>
+            <td colspan="7"><center><strong>Tidak ada Item di Keranjang Belanja anda</strong></center></td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+      <% if @cart.line_items.length > 0 %>
+      <!-- <div class="cartoptionbox">
+        <h4 class="heading4"> Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost. </h4>
+        <input type="radio" class="radio">
+        Use Coupon Code <br>
+        <input type="radio" class="radio">
+        Use Gift Voucher <br>
+        <input type="radio" class="radio" checked="checked">
+        Estimate Shipping & Taxes <br><br>
+        <form class="form-vertical form-inline">
+          <h4 class="heading4"> Enter your destination to get a shipping estimate.</h4>
+          <fieldset>
+            <div class="control-group">
+              <label  class="control-label">Select list</label>
+              <div class="controls">
+                <select  class="span3 cartcountry">
+                  <option>Country:</option>
+                  <option>United Kindom</option>
+                  <option>United States</option>
+                </select>
+                <select class="span3 cartstate">
+                  <option>Region / State:</option>
+                  <option>Angus</option>
+                  <option>highlands</option>
+                </select>
+                <input type="submit" value="Get Quotes" class="btn btn-orange">
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div> -->
+      <div class="container">
+      <div class="pull-right">
+          <div class="span4 pull-right">
+            <table class="table table-striped table-bordered ">
+              <tr>
+                <td><span class="extra bold">Sub-Total :</span></td>
+                <td><span class="bold"><%= number_to_currency @cart.total_price, unit: "IDR ", precision: 0, delimiter: '.' %></span></td>
+              </tr>
+              <!-- <tr>
+                <td><span class="extra bold">Eco Tax (-5.00) :</span></td>
+                <td><span class="bold">$11.0</span></td>
+              </tr>
+              <tr>
+                <td><span class="extra bold">VAT (18.2%) :</span></td>
+                <td><span class="bold">$21.0</span></td>
+              </tr> -->
+              <tr>
+                <td><span class="extra bold totalamout">Total :</span></td>
+                <td><span class="bold totalamout"><%= number_to_currency @cart.total_price, unit: "IDR ", precision: 0, delimiter: '.' %></span></td>
+              </tr>
+            </table>
+            <%= link_to "CheckOut", orders_path,class: "btn btn-primary pull-right" %>
+            <%= link_to "Lanjut Belanja", root_path, class: "btn btn-primary" %>
+          </div>
+        </div>
+        </div>
+        <% end %>
+    </div>
+
+<!-- <h1>Listing carts</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @carts.each do |cart| %>
+  <tr>
+    <td><%= link_to 'Show', cart %></td>
+    <td><%= link_to 'Edit', edit_cart_path(cart) %></td>
+    <td><%= link_to 'Destroy', cart, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Cart', new_cart_path %>
+ -->

@@ -1,0 +1,50 @@
+<ul class="breadcrumb">
+  <li><%= link_to 'Home', root_path %> <span class="divider">/</span></li>
+  <li class="active">Checkout</li>
+</ul>
+
+
+<div class="row">
+        <div class="span6">
+          <section class="newcustomer">
+            <h2 class="heading2">New Customer </h2>
+            <div class="loginbox">
+              <h4 class="heading4"> Register Account</h4>
+              <p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>
+              <br>
+              <p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>
+              <br>
+              <br>
+              <%= link_to 'Daftar', new_account_member_path, class: "btn btn-primary" %>
+            </div>
+          </section>
+        </div>
+        <div class="span6">
+          <section class="returncustomer">
+            <h2 class="heading2">Returning Customer </h2>
+            <div class="loginbox">
+              <h4 class="heading4">I am a returning customer</h4>
+              <%= form_for :session, :url => sessions_path, html: {class: "form-vertical"} do |f| %>
+                <fieldset>
+                  <div class="control-group">
+                    <label  class="control-label">E-Mail Address:</label>
+                    <div class="controls">
+                      <%= f.text_field :email, class: "span3", placeholder: "Email" %>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label  class="control-label">Password:</label>
+                    <div class="controls">
+                      <%= f.password_field :password, class: "span3", placeholder: "Password" %>
+                    </div>
+                  </div>
+                  <%= link_to 'Lupa password?', lupapassword_path %>
+                  <br>
+                  <br>
+                  <%= f.submit 'Login', class: "btn btn-primary" %>
+                </fieldset>
+               <% end %>
+            </div>
+          </section>
+        </div>
+      </div>

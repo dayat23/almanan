@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+      <div class="span12">
+          
+        <section>
+          <h3><span class="maintext">Produk Sering dilihat</span></h3>
+          <ul class="thumbnails">
+            <% if @highs.blank? %>
+              <li>
+                Belum ada produk
+              </li>
+            <% else %>
+              <% for high in @highs 
+                @image = PhotoProduct.find_all_by_product_id(high.id).first
+              %>
+                <li class="span4">
+                    <div class="he-wrap tpl5">
+                      <%= image_tag "#{get_url_other}/#{@image.image_product_url}", style: "width: 320px; height: 267px;" %>
+                      <div class="he-view">
+                        <%= link_to 'Add To Cart', add_to_cart_path(id: high.id), class: "buy a0", 'data-animate' => "bounceInDown" %>
+                        <a class="price a1" data-animate="bounceInDown" href="#"><%= number_to_currency product.price, unit: "IDR ", precision: 0, delimiter: '.' %></a>
+                      </div>
+                    </div>
+                	  <h4><center><%= link_to high.name_product, detail_product_path(high.id) %></center></h4>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        </section>
+
+      </div>
+    </div>
+  </div>

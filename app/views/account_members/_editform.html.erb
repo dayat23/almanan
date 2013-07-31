@@ -1,0 +1,70 @@
+<%= form_for(@account_member, html: { class: "form-horizontal"}) do |f| %>
+<%= f.hidden_field :role_id %>
+  <% if @account_member.errors.any? %>
+    <div id="error_explanation">
+        <div class="alert">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <h3><%= pluralize(@account_member.errors.count, "error") %> ditemukan sebelum disimpan</h3>
+          <% @account_member.errors.full_messages.each do |msg| %>
+          <ul>
+            <li><strong>Warning!</strong> <%= msg %></li>
+          </ul>
+          <% end %>
+        </div>
+    </div>
+  <% end %>
+  <h3 class="heading3">Data Pribadi Anda</h3>
+  <div class="registerbox">
+    <div class="control-group">
+      <label class="control-label" for="firstname">Nama Pertama</label>
+      <div class="controls">
+        <%= f.text_field :first_name, placeholder: "Nama Pertama" %>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="lastname">Nama Terakhir</label>
+      <div class="controls">
+        <%= f.text_field :last_name, placeholder: "Nama Terakhir" %>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="email">Email</label>
+      <div class="controls">
+        <%= f.text_field :email, placeholder: "Email" %>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="phone">No Telp</label>
+      <div class="controls">
+        <%= f.text_field :phone, placeholder: "No Telp" %>
+      </div>
+    </div>
+  </div>
+  <h3 class="heading3">Alamat Anda</h3>
+  <div class="registerbox">
+    <div class="control-group">
+      <label class="control-label" for="address">Alamat</label>
+      <div class="controls">
+        <%= f.text_field :address, placeholder: "Alamat" %>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="state">Provinsi</label>
+      <div class="controls">
+        <%= f.collection_select :state_id, State.all, :id, :name, prompt: "-- Pilih Provinsi --" %>
+        <!-- <%= f.text_field :state_id, 'data-provide' => "typeahead", 'data-source' => "#{@name}", 'data-items' => "4" %> -->
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="city">Kota</label>
+      <div class="controls">
+        <%= f.collection_select :city_id, City.all, :id, :name, prompt: true %>
+      </div>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <%= f.submit 'Simpan', class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

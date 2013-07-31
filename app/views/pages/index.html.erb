@@ -1,0 +1,78 @@
+<!-- Carousel
+    ================================================== -->
+    <!-- <div id="myCarousel" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="item active">
+          <%= image_tag 'examples/slide-01.jpg', alt: '' %>
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Example headline.</h1>
+              <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <a class="btn btn-large btn-primary" href="#">Sign up today</a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <%= image_tag 'examples/slide-02.jpg', alt: '' %>
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Another example headline.</h1>
+              <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <a class="btn btn-large btn-primary" href="#">Learn more</a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <%= image_tag 'examples/slide-03.jpg', alt: '' %>
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>One more for good measure.</h1>
+              <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <a class="btn btn-large btn-primary" href="#">Browse gallery</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div> --><!-- /.carousel -->
+
+<div class="container">
+    <div class="row">
+      <div class="span12">
+          
+        <section>
+          <h3><span class="maintext">Semua Produk</span></h3>
+          <ul class="thumbnails">
+            <% if @products.blank? %>
+              <li>
+                Belum ada produk
+              </li>
+            <% else %>
+              <% @products.each do |product|
+                  @image = PhotoProduct.find_all_by_product_id(product).first
+               %>
+                <li class="span4">
+                    <div class="he-wrap tpl5">
+                      <%= image_tag "#{get_url_other}/#{@image.image_product_url}" , style: "width: 320px; height: 267px;" %>
+                      <div class="he-view">
+                        <%= link_to 'Add To Cart', add_to_cart_path(id: product.id), class: "buy a0", 'data-animate' => "bounceInDown" %>
+                        <a class="price a1" data-animate="bounceInDown" href="#"><%= number_to_currency product.price, unit: "IDR ", precision: 0, delimiter: '.' %></a>
+                      </div>
+                    </div>
+                	  <h4><center><%= link_to product.name_product, detail_product_path(product) %></center></h4>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+
+              <div class="pagination pagination-centered">
+                <ul>
+                  <%= paginate @products, :url => root_path %>
+                </ul>
+              </div>
+        </section>
+
+      </div>
+    </div>
+  </div>

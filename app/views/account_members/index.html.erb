@@ -1,0 +1,41 @@
+<h1>Listing account_members</h1>
+
+<table>
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Address</th>
+    <th>Phone</th>
+    <th>Email</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Encrypted password</th>
+    <th>Salt</th>
+    <th>Role</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @account_members.each do |account_member| %>
+  <tr>
+    <td><%= account_member.first_name %></td>
+    <td><%= account_member.last_name %></td>
+    <td><%= account_member.address %></td>
+    <td><%= account_member.phone %></td>
+    <td><%= account_member.email %></td>
+    <td><%= account_member.city_id %></td>
+    <td><%= account_member.state_id %></td>
+    <td><%= account_member.encrypted_password %></td>
+    <td><%= account_member.salt %></td>
+    <td><%= account_member.role_id %></td>
+    <td><%= link_to 'Show', account_member %></td>
+    <td><%= link_to 'Edit', edit_account_member_path(account_member) %></td>
+    <td><%= link_to 'Destroy', account_member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Account member', new_account_member_path %>

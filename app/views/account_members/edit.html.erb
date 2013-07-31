@@ -1,0 +1,62 @@
+<script type="text/javascript">
+jQuery(document).ready(function() {
+  jQuery('#account_member_city_id').html("<option value='<%= @account_member.city_id %>'><%= @account_member.city.name %></option>");
+
+  jQuery('#account_member_state_id').change(function() {
+
+    var data=$('#account_member_state_id').val();
+    $.ajax({
+      type: "GET",
+      url: "http://"+location.host+"/dynamic_cities/"+data,
+      data: data,
+
+      beforeSend: function()
+      {
+      },
+
+      success: function(html)
+      {
+      }
+
+    });
+  });
+});
+</script>
+
+<ul class="breadcrumb">
+  <li><%= link_to 'Home', root_path %> <span class="divider">/</span></li>
+  <li><%= link_to 'Dashboards', dashboards_path %> <span class="divider">/</span></li>
+  <li class="active">Edit informasi data pribadi</li>
+</ul>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span4">     
+        <div class="well sidebar-nav">
+          <ul class="nav nav-list">
+            <li class="nav-header">Informasi Akun</li>
+            <li class="<%= @classe %>">
+              <%= link_to edituser_path(id: current_user) do %><i class="icon-user icon-black"></i>Ubah informasi data pribadi<% end %>
+            </li>
+            <li class="<%= @classg %>">
+              <%= link_to editpassword_path do %><i class="icon-edit icon-black"></i>Ganti password<% end %>
+            </li>
+            <li class="nav-header">Orderan</li>
+            <li class="<%= @classo %>">
+              <%= link_to daftarorder_path do %><i class="icon-shopping-cart icon-black"></i>Lihat daftar orderan<% end %>
+            </li>
+            <!-- <li class="<%= @classy %>">
+              <%= link_to '#' do %><i class="icon-user icon-black"></i>Your transactions<% end %>
+            </li> -->
+            <li class="nav-header">Kenangan</li>
+            <li class="<%= @classt %>">
+              <%= link_to new_testimonial_path do %><i class="icon-comment icon-black"></i>Testimoni<% end %>
+            </li>
+          </ul>
+        </div><!--/.well -->
+      </div>
+      <div class="span8">
+        <%= render 'editform' %>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<h1>Listing customer_supports</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Username</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @customer_supports.each do |customer_support| %>
+  <tr>
+    <td><%= customer_support.name %></td>
+    <td><%= customer_support.username %></td>
+    <td><%= link_to 'Show', customer_support %></td>
+    <td><%= link_to 'Edit', edit_customer_support_path(customer_support) %></td>
+    <td><%= link_to 'Destroy', customer_support, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Customer support', new_customer_support_path %>

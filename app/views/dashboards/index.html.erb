@@ -1,0 +1,58 @@
+<ul class="breadcrumb">
+  <li><%= link_to 'Home', root_path %> <span class="divider">/</span></li>
+  <li class="active">Dashboards</li>
+</ul>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span4">     
+        <div class="well sidebar-nav">
+          <ul class="nav nav-list">
+            <li class="nav-header">Informasi Akun</li>
+            <li class="<%= @classe %>">
+              <%= link_to edituser_path(id: current_user) do %><i class="icon-user icon-black"></i>Ubah informasi data pribadi<% end %>
+            </li>
+            <li class="<%= @classg %>">
+              <%= link_to editpassword_path do %><i class="icon-edit icon-black"></i>Ganti password<% end %>
+            </li>
+            <li class="nav-header">Orderan</li>
+            <li class="<%= @classo %>">
+              <%= link_to daftarorder_path do %><i class="icon-shopping-cart icon-black"></i>Lihat daftar orderan<% end %>
+            </li>
+            <!-- <li class="<%= @classy %>">
+              <%= link_to '#' do %><i class="icon-user icon-black"></i>Your transactions<% end %>
+            </li> -->
+            <li class="nav-header">Kenangan</li>
+            <li class="<%= @classt %>">
+              <%= link_to new_testimonial_path do %><i class="icon-comment icon-black"></i>Testimoni<% end %>
+            </li>
+          </ul>
+        </div><!--/.well -->
+      </div>
+      <div class="span8">
+        <div class="span12 tac">
+          <ul class="ov_boxes">
+            <li>
+              <div class="p_bar_up p_canvas">Status Akun</div>
+                <div class="ov_text">
+                  <% if current_user.status == 1 %>
+                    <strong><span class="label label-success sl_status">Akun aktif</span></strong>
+                    Free Member
+                  <% else %>
+                    <strong><span class="label label-important sl_status">Akun nonaktif</span></strong>
+                    Free Member
+                  <% end %>
+                </div>
+            </li>
+            <li>
+              <div class="p_bar_down p_canvas">Total Order</div>
+                <div class="ov_text">
+                  <strong><%= Order.find_all_by_account_member_id(current_user.id).count %></strong>
+                  Order
+                </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+</div>

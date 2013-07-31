@@ -1,0 +1,89 @@
+<ul class="breadcrumb">
+  <li><%= link_to 'Home', root_path %> <span class="divider">/</span></li>
+  <li><%= link_to 'Dashboards', dashboards_path %> <span class="divider">/</span></li>
+  <li class="active">Daftar Order</li>
+</ul>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span4">     
+        <div class="well sidebar-nav">
+          <ul class="nav nav-list">
+            <li class="nav-header">Informasi Akun</li>
+            <li class="<%= @classe %>">
+              <%= link_to edituser_path(id: current_user) do %><i class="icon-user icon-black"></i>Ubah informasi data pribadi<% end %>
+            </li>
+            <li class="<%= @classg %>">
+              <%= link_to editpassword_path do %><i class="icon-edit icon-black"></i>Ganti password<% end %>
+            </li>
+            <li class="nav-header">Orderan</li>
+            <li class="<%= @classo %>">
+              <%= link_to daftarorder_path do %><i class="icon-shopping-cart icon-black"></i>Lihat daftar orderan<% end %>
+            </li>
+            <!-- <li class="<%= @classy %>">
+              <%= link_to '#' do %><i class="icon-user icon-black"></i>Your transactions<% end %>
+            </li> -->
+            <li class="nav-header">Kenangan</li>
+            <li class="<%= @classt %>">
+              <%= link_to new_testimonial_path do %><i class="icon-comment icon-black"></i>Testimoni<% end %>
+            </li>
+          </ul>
+        </div><!--/.well -->
+      </div>
+      <div class="span8">
+        <h3>Daftar Order</h3>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nama Produk</th>
+              <th>Quantity</th>
+              <th>Harga per item</th>
+              <th>Ongkos Kirim</th>
+              <th>Total Biaya</th>
+              <th>Status Order</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @orders.blank? %>
+              <tr>
+                <td colspan="8"><center>Belum ada order</center></td>
+              </tr>
+            <% else %>
+              <% i = 1
+                @orders.each do |order|
+                  order.line_items.each do |item|
+
+                if order.status == 0
+                  @class = "warning"
+                elsif order.status == 1
+                  @class = "success"
+                end
+              %>
+              <tr class="<%= @class %>">
+                <td><%= i %></td>
+                <td><%= item.product.name_product %></td>
+                <td><%= item.quantity %></td>
+                <td><%= number_to_currency item.product.price, unit: "IDR ", precision: 0, delimiter: '.' %></td>
+                <td><%= number_to_currency order.destination.price, unit: "IDR ", precision: 0, delimiter: '.' %></td>
+                <td><%= number_to_currency order.total_all_price, unit: "IDR ", precision: 0, delimiter: '.' %></td>
+                <td><%= order.status == 0? "Pending" : "Terkirim" %></td>
+                <td>
+                  <% if order.status == 0 %>
+                    <%= link_to cancelorder_path(id: order.id), method: :delete, data: { confirm: 'Are you sure?' }, title: 'batal order' do %><i class="icon-remove"></i><% end %>
+                  <% else %>
+                    Tidak bisa batal order
+                  <% end %>
+                </td>
+              </tr>
+              <% i += 1
+                  end
+                end
+              %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+</div>

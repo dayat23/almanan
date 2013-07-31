@@ -1,0 +1,123 @@
+<ul class="breadcrumb">
+  <li><%= link_to 'Home', root_path %> <span class="divider">/</span></li>
+  <% if @namecategory.blank? %>
+  <li class="active">Kategori</li>
+  <% else %>
+  <li><%= link_to 'Kategori', kategori_path %><span class="divider">/</span></li>
+  <li class="active"><%= @namecategory.capitalize %></li>
+  <% end %>
+</ul>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Kategori</li>
+              <% @categories.each do |category|
+
+                @class = []
+                if @namecategory == category.name
+                  @class = "active"
+                end
+                @class
+
+                %>
+              <li class='<%= @class %>'><%= link_to "#{category.name} (#{category.products.count})".html_safe, categorydetail_path(category) %></li>
+              <% end %>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+          <div id="category">
+          <!-- Sorting-->
+            <div class="sorting well">
+                <!-- <form class="form-inline pull-left">
+                Sort By :
+                <select class="span6">
+                    <option>Default</option>
+                    <option>Name</option>
+                    <option>Pirce</option>
+                    <option>Rating </option>
+                    <option>Color</option>
+                </select> -->
+                <!-- &nbsp;&nbsp;
+                Show:
+                <select class="span1">
+                    <option>10</option>
+                    <option>15</option>
+                    <option>20</option>
+                    <option>25</option>
+                    <option>30</option>
+                </select> -->
+                </form>
+                <div class="btn-group pull-right">
+                   <button class="btn" id="list"><i class="icon-th-list"></i></button>
+                    <button class="btn btn-info" id="grid"><i class="icon-th icon-white"></i></button>
+                </div>
+            </div>
+            <div id="product-list">
+              <% if @products.blank? %>
+                Belum ada produk
+              <% else %>
+                <ul class="list user_list" style="display: none;">
+                  <% @products.each do |product|
+                    @image = PhotoProduct.find_all_by_product_id(product.id).first
+                   %>
+                  <li>
+                    <div class="thumbnail-list">
+                      <div class="row">
+                          <div class="span3">
+                            <%= image_tag "#{get_url_other}/#{@image.image_product_url}", style: "width: 250px; height: 200px;" %>
+                          </div>
+                        <div class="span6">
+                          <div class="caption">
+                            <h3><%= link_to product.name_product , detail_product_path(product) %></h3>
+                            <p><%= product.description %></p>
+                            <p><%= number_to_currency product.price, unit: "IDR ", precision: 0, delimiter: '.' %></p>
+                            <p><%= link_to 'Add To Cart', add_to_cart_path(product), class: "btn btn-info" %></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <% end %>
+                </ul>
+                <ul class="list user_list" style="display: none;">
+                  <div class="pagination"><ul class="paging bottomPaging"></ul></div>
+                </ul>
+              <% end %>
+            </div>
+            <div id="product-grid">
+              <div class="span12">
+                <div class="mboh" style="display: block;">
+                  <ul class="list user_list grid">
+                  <% @products.each do |product|
+                    @image = PhotoProduct.find_all_by_product_id(product.id).first
+                   %>
+                  <div class="puss">
+                    <div class="span4">
+                      <div class="he-wrap tpl5">
+                      <%= image_tag "#{get_url_other}/#{@image.image_product_url}", style: "width: 250px; height: 200px;" %>
+                        <div class="he-view">
+                          <%= link_to 'Add To Cart', add_to_cart_path(product), class: "buy a0", 'data-animate' => "bounceInDown" %>
+                          <a class="price a1" data-animate="bounceInDown" href="#"><%= number_to_currency product.price, unit: "IDR ", precision: 0, delimiter: '.' %></a>
+                        </div>
+                      </div>
+                      <h4><center><%= link_to product.name_product, detail_product_path(product) %></center></h4>
+                    </div>
+                  </div>
+                  <% end %>
+                  </ul>
+                </div>
+              </div>
+              <div class="mboh" style="display: block;">
+                <ul class="list user_list grid">
+                  <div class="pagination"><ul class="paging bottomPaging1"></ul></div>
+                </ul>
+              </div>
+            </div>
+          </div>
+	    </div><!--/span-->
+    </div><!--/row-->
+</div>
